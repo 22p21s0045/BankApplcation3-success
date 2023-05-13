@@ -15,6 +15,12 @@ public class Account {
    public void deposit(double amount){
        this.balance += amount;
    }
+
+    public Account(int number, String name, double balance) {
+        this.number = number;
+        this.name = name;
+        this.balance = balance;
+    }
    public void withdraw(double amount){
        balance -= amount;
    }
