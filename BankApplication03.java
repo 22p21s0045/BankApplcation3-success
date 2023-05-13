@@ -51,6 +51,14 @@ public class BankApplication03 {
                     bank.openAccount(new_account);
                     break;
                 case 3:
+                    System.out.println("Attention are you in Delete session !!!");
+                    System.out.println("Carefully");
+                    System.out.println("Enter accountID: ");
+                    scan.nextLine();
+                    int accountID = scan.nextInt();
+                    bank.closeAccount(accountID);
+                    
+                    
                     break;
                 case 4:
                     break;

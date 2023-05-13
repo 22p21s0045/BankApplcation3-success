@@ -35,11 +35,20 @@ public class Bank {
 
         if (prepare.executeUpdate() == 1) {
             System.out.println("Open account success");
-            System.out.println("Thank for open account" + " "+ account.getName());
+            System.out.println("Thank for open account" + " " + account.getName());
         }
+
     }
 
-    void closeAccount(int number) {
+    void closeAccount(int number) throws SQLException {
+        var connect = BankConnection.connect();
+        String sql = "DELETE FROM accounts WHERE accountID = ?";
+        PreparedStatement prepare;
+        prepare = connect.prepareStatement(sql);
+        prepare.setString(1, Integer.toString(number));
+        if (prepare.executeUpdate() == 1) {
+            System.out.println("Delete accountID:" + " " + number + " " + "Success !");
+        }
 
     }
 
@@ -85,8 +94,28 @@ public class Bank {
 //        
 //      }
 
+        Bank bank = new Bank();
+        Account user = bank.getAccount(10098);
+        System.out.println(user.getName());
+
+    }
+
+    Account getAccount(int number) throws SQLException {
+        String accountID;
+        String name;
+        double balance;
+        var connect = BankConnection.connect();
+       String sql = "SELECT * FROM accounts WHERE accountID = ?";
+
+PreparedStatement prepare = connect.prepareStatement(sql);
+prepare.setString(1, Integer.toString(number));
+ResultSet result = prepare.executeQuery();
+if (result.next()) {
+    accountID = result.getString("accountID");
+    name = result.getString("name");
+    balance = result.getDouble("balance");
+    var account = new Account(Integer.parseInt(accountID), name, balance);
+}
+return account;
     }
 }
-//  Account getAccount(int number )
-//          
-//}
