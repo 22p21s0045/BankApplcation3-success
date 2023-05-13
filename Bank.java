@@ -105,17 +105,20 @@ public class Bank {
         String name;
         double balance;
         var connect = BankConnection.connect();
-       String sql = "SELECT * FROM accounts WHERE accountID = ?";
+        String sql = "SELECT * FROM accounts WHERE accountID = ? ";
+        PreparedStatement prepare;
+        prepare = connect.prepareStatement(sql);
+        prepare.setString(1, Integer.toString(number));
 
-PreparedStatement prepare = connect.prepareStatement(sql);
-prepare.setString(1, Integer.toString(number));
-ResultSet result = prepare.executeQuery();
-if (result.next()) {
-    accountID = result.getString("accountID");
-    name = result.getString("name");
-    balance = result.getDouble("balance");
-    var account = new Account(Integer.parseInt(accountID), name, balance);
-}
-return account;
+        ResultSet result = prepare.executeQuery();
+        if(!result.next()){
+            return null;
+        }
+        accountID = result.getString("accountID");
+        name = result.getString("name");
+        balance = result.getDouble("balance");
+
+        Account account = new Account(Integer.parseInt(accountID), name, balance);
+        return account;
     }
 }
