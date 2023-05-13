@@ -52,7 +52,27 @@ public class Bank {
 
     }
 
-    void depositMoney(Account account, double amount) {
+    void depositMoney(Account account, double amount) throws SQLException {
+        var connect = BankConnection.connect();
+        String sql = "UPDATE accounts SET balance = ? WHERE accountID = ?;";
+        account.deposit(amount);
+        PreparedStatement prepare;
+        prepare = connect.prepareStatement(sql);
+        prepare.setDouble(1, account.balance);
+        prepare.setString(2, Integer.toString(account.getNumber()));
+        if(prepare.executeUpdate() ==1){
+            String getAmount = "SELECT balance FROM accounts WHERE accountID = ? ";
+            prepare = connect.prepareStatement(getAmount);
+            prepare.setString(1, Integer.toString(account.getNumber()));
+            ResultSet result = prepare.executeQuery();
+            if(result.next()){
+                System.out.println("Now your balance is ");
+                System.out.println(result.getDouble("balance"));
+            }
+            
+        }
+        
+        
 
     }
 
@@ -93,14 +113,14 @@ public class Bank {
 //          
 //        
 //      }
-
-        Bank bank = new Bank();
-        Account user = bank.getAccount(10098);
-        System.out.println(user.getName());
+//-- Test getAccount
+//        Bank bank = new Bank();
+//        Account user = bank.getAccount(10098);
+//        System.out.println(user.getName());
 
     }
 
-    Account getAccount(int number) throws SQLException {
+    public Account getAccount(int number) throws SQLException {
         String accountID;
         String name;
         double balance;

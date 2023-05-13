@@ -61,6 +61,13 @@ public class BankApplication03 {
                     
                     break;
                 case 4:
+                    System.out.println("Welcome to deposit interface");
+                    System.out.println("Enter account ID: ");
+                    int account_id = scan.nextInt();
+                    double amount = scan.nextDouble();
+                    Account account = bank.getAccount(account_id);
+                    bank.depositMoney(account,amount);
+                    
                     break;
                 case 5:
                     break;
