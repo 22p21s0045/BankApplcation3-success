@@ -20,7 +20,7 @@ public class BankApplication03 {
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
         int option = 0;
-        
+        Bank bank = new Bank();
         while(option != 6){
             Scanner scan = new Scanner(System.in);
             System.out.println("1.Display All Accounts");
@@ -33,7 +33,7 @@ public class BankApplication03 {
 //            System.out.println(option);
 switch(option){
     case 1:
-        
+        bank.listAccounts();
         
         break;
     case 2:

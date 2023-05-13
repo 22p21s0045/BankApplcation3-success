@@ -29,17 +29,7 @@ public class Bank {
       
   }
   void listAccounts() throws SQLException{
-      String sql = "SELECT * FROM ";
-      connect = BankConnection.connect();
-      Statement statement = connect.createStatement();
-      ResultSet result = statement.executeQuery(sql);
-      while(result.next()){
-          System.out.println(result.getString("accountID"));
-      }
-      
-  }
-    public static void main(String[] args) throws SQLException {
-        String sql = "SELECT * FROM accounts";
+       String sql = "SELECT * FROM accounts";
       var connect = BankConnection.connect();
       Statement statement = connect.createStatement();
       ResultSet result = statement.executeQuery(sql);
@@ -54,6 +44,24 @@ public class Bank {
           
         
       }
+  }
+    public static void main(String[] args) throws SQLException {
+//        --Test execution
+//        String sql = "SELECT * FROM accounts";
+//      var connect = BankConnection.connect();
+//      Statement statement = connect.createStatement();
+//      ResultSet result = statement.executeQuery(sql);
+//      System.out.println("accountID"+"   "+"name"+"   "+"balance"+"       "+"bankName");
+//      while(result.next()){
+////          System.out.println("Inside loop");
+//
+//
+//          System.out.println(result.getString("accountID")+"      "+ result.getString("name")
+//          + "     " + result.getString("balance") + "    " + result.getString("bankName")
+//          );
+//          
+//        
+//      }
       
     }
 }
