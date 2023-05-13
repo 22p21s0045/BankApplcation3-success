@@ -60,23 +60,43 @@ public class Bank {
         prepare = connect.prepareStatement(sql);
         prepare.setDouble(1, account.balance);
         prepare.setString(2, Integer.toString(account.getNumber()));
-        if(prepare.executeUpdate() ==1){
+        if (prepare.executeUpdate() == 1) {
             String getAmount = "SELECT balance FROM accounts WHERE accountID = ? ";
             prepare = connect.prepareStatement(getAmount);
             prepare.setString(1, Integer.toString(account.getNumber()));
             ResultSet result = prepare.executeQuery();
-            if(result.next()){
+            if (result.next()) {
                 System.out.println("Now your balance is ");
                 System.out.println(result.getDouble("balance"));
             }
-            
+
         }
-        
-        
 
     }
 
-    void withdrawMoney(Account account, double amount) {
+    void withdrawMoney(Account account, double amount) throws SQLException {
+        var connect = BankConnection.connect();
+        if (amount > account.balance) {
+            System.out.println("Not enough balance");
+
+        } else {
+            account.withdraw(amount);
+            String update_balance = "UPDATE accounts SET balance = ? WHERE accountID = ?;";
+            PreparedStatement prepare;
+            prepare = connect.prepareStatement(update_balance);
+            prepare.setString(2, Integer.toString(account.getNumber()));
+            prepare.setDouble(1, account.getBalance());
+            if (prepare.executeUpdate() == 1) {
+                String getAmount = "SELECT balance FROM accounts WHERE accountID = ? ";
+                prepare = connect.prepareStatement(getAmount);
+                prepare.setString(1, Integer.toString(account.getNumber()));
+                ResultSet result = prepare.executeQuery();
+                if (result.next()) {
+                    System.out.println("Now your balance is ");
+                    System.out.println(result.getDouble("balance"));
+                }
+            }
+        }
 
     }
 
@@ -131,7 +151,7 @@ public class Bank {
         prepare.setString(1, Integer.toString(number));
 
         ResultSet result = prepare.executeQuery();
-        if(!result.next()){
+        if (!result.next()) {
             return null;
         }
         accountID = result.getString("accountID");

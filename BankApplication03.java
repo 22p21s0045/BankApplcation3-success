@@ -29,6 +29,7 @@ public class BankApplication03 {
             System.out.println("3.Close Existing Account");
             System.out.println("4.Desposit:");
             System.out.println("5.Withdraw");
+            System.out.println("6.Close program");
             System.out.println("Enter option:");
             option = scan.nextInt();
 //            System.out.println(option);
@@ -70,10 +71,18 @@ public class BankApplication03 {
                     
                     break;
                 case 5:
+                    System.out.println("Welcome to Withdraw interface");
+                    System.out.println("Enter account ID:");
+                    var account_ids = scan.nextInt();
+                    System.out.println("Enter amount");
+                    var amount_withdraw = scan.nextDouble();
+                    Account account_deposit = bank.getAccount(account_ids);
+                    bank.withdrawMoney(account_deposit, amount_withdraw);
                     break;
 
                 case 6:
                     break;
+                   
 
             }
         }
