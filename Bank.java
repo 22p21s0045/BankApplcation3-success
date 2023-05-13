@@ -43,10 +43,18 @@ public class Bank {
       var connect = BankConnection.connect();
       Statement statement = connect.createStatement();
       ResultSet result = statement.executeQuery(sql);
+      System.out.println("accountID"+"   "+"name"+"   "+"balance"+"       "+"bankName");
       while(result.next()){
-          System.out.print(result.getString("balance"));
+//          System.out.println("Inside loop");
+
+
+          System.out.println(result.getString("accountID")+"      "+ result.getString("name")
+          + "     " + result.getString("balance") + "    " + result.getString("bankName")
+          );
+          
         
       }
+      
     }
 }
 //  Account getAccount(int number )
